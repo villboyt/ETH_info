@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETH信息查询</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="toast" class="toast hidden"></div>
+        
+        <div class="title-container">
+            <input type="text" id="pageTitle" class="title-input" maxlength="20" value="ETH地址信息查询">
+        </div>
+
+        <div class="add-row">
+            <button type="button" id="queryAll">查询所有</button>
+            <button type="button" id="stopQuery" class="hidden">停止查询</button>
+            <button type="button" id="addRow">添加新行</button>
+            <button type="button" id="batchImport">批量导入</button>
+            <button type="button" id="fileImport">文件导入</button>
+            <button type="button" id="copyAddresses">复制地址</button>
+            <button type="button" id="batchDelete" class="danger">批量删除</button>
+        </div>
+        <!-- 修���统计信息区域 -->
+        <div class="stats-panel">
+            <div class="stats-item">
+                <span>钱包数量：</span>
+                <span id="totalWallets">-</span>
+            </div>
+            <div class="stats-item">
+                <span>ETH总额：</span>
+                <span id="totalEth">-</span>
+            </div>
+            <div class="stats-item">
+                <span>总价值：</span>
+                <span id="totalValue">-</span>
+            </div>
+            <button type="button" id="refreshStats" class="refresh-stats-btn"></button>
+        </div>
+        <table id="ethTable">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
+                    <th>序号</th>
+                    <th>说明</th>
+                    <th>钱包地址</th>
+                    <th>余额(ETH)</th>
+                    <th>交易次数</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <!-- 在表格下方添加分页控件 -->
+        <div class="pagination">
+            <div class="page-info">
+                <span>每页显示:</span>
+                <select id="pageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>条</span>
+            </div>
+            <div class="page-controls">
+                <button type="button" id="firstPage" title="首页">«</button>
+                <button type="button" id="prevPage" title="上一页">‹</button>
+                <span class="page-numbers">
+                    第 <span id="currentPage">1</span> / <span id="totalPages">1</span> 页
+                </span>
+                <button type="button" id="nextPage" title="下一页">›</button>
+                <button type="button" id="lastPage" title="末页">»</button>
+            </div>
+        </div>
+        <!-- 导入对话框 -->
+        <div id="importDialog" class="dialog hidden">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h3>批量导入地址</h3>
+                    <button type="button" class="close-btn" id="closeDialog">×</button>
+                </div>
+                <div class="dialog-body">
+                    <p class="hint">每行输入一个ETH地址</p>
+                    <textarea id="importAddresses" placeholder="0x123...456&#10;0x789...012"></textarea>
+                </div>
+                <div class="dialog-footer">
+                    <button type="button" id="confirmImport">导入</button>
+                </div>
+            </div>
+        </div>
+        <input type="file" id="addressFile" accept=".txt,.xlsx" style="display: none;" />
+        <!-- 添加确认删除对话框 -->
+        <div id="confirmDeleteDialog" class="dialog hidden">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h3>确认删除</h3>
+                    <button type="button" class="close-btn" id="closeConfirmDialog">×</button>
+                </div>
+                <div class="dialog-body">
+                    <p>确定要删除选中的 <span id="deleteCount">0</span> 行数据吗？</p>
+                </div>
+                <div class="dialog-footer">
+                    <button type="button" id="cancelDelete">取消</button>
+                    <button type="button" id="confirmDelete" class="danger">确认删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 使用 jsdelivr CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
