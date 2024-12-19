@@ -121,7 +121,7 @@ function validateAndFormatAddress(addressInput) {
 // 修改查询功能，移除 gas 相关代码
 async function queryAddressInfo(address, row) {
     try {
-        const provider = new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/f4ca76ba3b7145c8aab1ed9a384adb7b');
+        const provider = new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/your api key');
         
         const balanceCell = row.querySelector('.balance');
         const txCountCell = row.querySelector('.txCount');
